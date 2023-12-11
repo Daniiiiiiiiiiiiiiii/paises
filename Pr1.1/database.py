@@ -18,6 +18,6 @@ app.config['SECRET_KEY'] = 'hardsecretkey'  # Para las sesiones flash
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
-class JugadorSchema(ma.Schema):
+class PaisSchema(ma.Schema):
     class Meta:
         fields = ('id', 'nombre', 'capital', 'bandera', 'habitantes', 'diaNacional')
