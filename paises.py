@@ -16,14 +16,14 @@ class Pais(db.Model):
     nombre = db.Column(db.String(100), nullable=False)
     capital = db.Column(db.String(100), nullable=False)
     bandera_url = db.Column(db.String(100), nullable=False)
-    bandera_blob = db.Column(db.LargeBinary, nullable=False)
+    # bandera_blob = db.Column(db.LargeBinary, nullable=False)
+    bandera_blob = db.Column(db.BLOB)
     habitantes = db.Column(db.Integer, nullable=False)
     diaNacional = db.Column(db.Date, nullable=False)
     
      
-    def __init__(self, nombre,edad, capital, bandera_url, bandera_blob, habitantes, diaNacional):
+    def __init__(self, nombre, capital, bandera_url, bandera_blob, habitantes, diaNacional):
         self.nombre = nombre
-        self.edad = edad
         self.capital = capital
         self.bandera_url = bandera_url
         self.bandera_blob = bandera_blob
