@@ -16,10 +16,18 @@ def home():
     pais = Pais.query.all()
     paisesLeidos = pais_schema.dump(pais)
     
-    return render_template('index.html', pais = paisesLeidos)
+    return render_template('index.html', pais = pais)
+
+@app.route('/paises')
+def formulario():
+    pais = Pais.query.all()
+    paisesLeidos = pais_schema.dump(pais)
+    
+    return render_template('add.html', pais = paisesLeidos)
+
 
 #Method Post
-@app.route('/paises', methods=['POST'])
+@app.route('/agregar', methods=['POST'])
 def addPais():
     if request.method == 'POST':
         nombre = request.form['nombre']
@@ -43,7 +51,7 @@ def addPais():
         with open(upload_path, 'rb') as file:
             blob_data = file.read()
 
-        bandera_url = "Bandera-de-" + nombre + extension
+        bandera_url = "BanderaDe" + nombre + extension
 
         if nombre and capital and bandera_url and blob_data and habitantes and diaNacional:
             nuevo_pais = Pais(

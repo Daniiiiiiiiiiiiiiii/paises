@@ -6,62 +6,60 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Paises</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <style>
-        html,body{
-            height: 100%;
-            overflow: hidden;
+        #container{
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
         }
-        body{
-            background: linear-gradient(90deg, #20d7d8, #145c80);
-        }
-        label {
-            font-weight: bold;
+        #add{
+            background-color: darkgreen;
+            color: whitesmoke;
+            text-decoration: none;
+            border-radius: 10px;
+            padding: 10px;
         }
     </style>
 </head>
 
 <body>
-
-    <div class="container">
-            <h3 class="mt-3 mb-3 text-center">¡Exploremos el Mundo! 🌎 Ingresa un País 🚀</h3>
-
-            <form class="mw-75" form action="/paises" method="POST" enctype="multipart/form-data">
-                <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre del País:</label>
-                    <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Ingrese el nombre del país" />
+    <a href="/paises" id="add">Añadir País</a>
+    <div id="container">
+        {% for pais in pais %}
+        <div class="card" style="width: 18rem;">
+            <img src="{{ url_for('static', filename='images/' + pais.bandera_url) }}" class="card-img-top" alt="{{pais.bandera_url}}">
+            <div class="card-body">
+            <h5 class="card-title">{{pais.nombre}}</h5>
+            <p class="card-text">{{pais.capital}}</p>
+            <a href="#" class="btn btn-primary mostrarDetalles">Detalles</a>
+            <div class="card detalles" style="width: 10rem; display: none;">
+                <img src="{{ url_for('static', filename='images/' + pais.bandera_url) }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class="card-title">Pais: {{pais.nombre}}</h5>
+                <p class="card-text">Capital: {{pais.capital}}</p>
+                <p class="card-text">Nº de habitantes: {{pais.habitantes}}</p>
+                <p class="card-text">Dia nacional: {{pais.diaNacional}}</p>
                 </div>
-
-                <div class="mb-3">
-                    <label for="capital" class="form-label">Capital:</label>
-                    <input type="text" name="capital" class="form-control" id="nombre" placeholder="Ingrese el nombre de la capital" />
-                </div>
-
-                <div class="mb-3">
-                    <label for="file" class="form-label">Bandera:</label>
-                    <input class="form-control" name="bandera" type="file" id="bandera" />
-                </div>
-
-                <div class="mb-3">
-                    <label for="habitantes" class="form-label">Número de Habitantes:</label>
-                    <input type="number" name="habitantes" class="form-control" id="habitantes"
-                        placeholder="Ingrese el número de habitantes" />
-                </div>
-
-                <div class="mb-3">
-                    <label for="diaNacional" class="form-label">Día Nacional:</label>
-                    <input type="date" name="diaNacional" class="form-control" id="diaNacional" />
-                </div>
-
-                <button type="submit" class="btn btn-primary">Enviar</button>
-            </form>
+            </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
+    <script>
+        var botonesDetalles = document.querySelectorAll('.mostrarDetalles');
 
-    <!-- Agrega los scripts de Bootstrap al final del cuerpo del documento -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    </form>
-    </div>
+        botonesDetalles.forEach(function(boton) {
+            boton.addEventListener('click', function(e) {
+                e.preventDefault();
+                var detalles = this.closest('.card-body').querySelector('.detalles');
+                if(detalles.style.display == "none"){
+                    detalles.style.display = "block";
+                } else{
+                    detalles.style.display = "none";
+                }
+            });
+        });
+    </script>
 </body>
-
 </html>
